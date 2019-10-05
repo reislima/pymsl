@@ -37,6 +37,8 @@ All user authentication schemes are defined in the MSL wiki: https://github.com/
 ...     keypair=CUSTOM_CRYPTODOME_RSA_KEYPAIR, # default is a random 2048-bit keypair
 ...     message_id=CUSTOM_MESSAGE_ID, # default is a random integer between 0 and 2^52
 ...     languages=LIST_OF_LANGUAGES, # default is ['en_US']
+...     proxies=PROXIES, # default is None
+...     key_request_data=CUSTOM_KEY_REQUEST_DATA, # default is ASYMMETRIC_WRAPPED
 ...     extra_manifest_params=EXTRA_MANIFEST_PARAMS # default is a blank dict
 ... )
 ```
@@ -47,6 +49,8 @@ All user authentication schemes are defined in the MSL wiki: https://github.com/
 - `keypair` is the RSA keypair used in the initial key exchange.
 - `message_id` is a random integer used for identifying the MSL client session.
 - `languages` is a list of languages used for determining the language of the manifest received.
+- `proxies` is a proxy dict passed the same way you would pass it to the [requests](https://2.python-requests.org/en/master/user/advanced/#proxies) library.
+- `key_request_data` is a dict passed to override the normal `ASYMMETRIC_WRAPPED` key request dict in order to enable using other key exchange mechanisms. Note that you may have to monkey patch the `parse_handshake` function in order for it to work with your specified key exchange mechanism.
 - `extra_manifest_params` is a dict of extra manifest params. Here's the default manifest params sent in a manifest request:
 
 ```python
